@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>MyTable</title>
+    <!-- https://threejs.org/manual/#en/responsive -->
+    <style>
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        #WebGL-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "three":         "https://unpkg.com/three@0.161.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+      }
+    }
+    </script>
+</head>
+<body>
+
+<!-- Canvas for Webgl Output -->
+<canvas id="WebGL-canvas"></canvas>
+
+<script type="module">
+
+  'use strict';
+
+  import { Webgl } from './Webgl.js';
+  import { MyGui } from './MyGui.js';
+
+  const webgl = new Webgl();
+  const mygui = new MyGui(webgl);
+
+  render();
+
+  function render() {
+    requestAnimationFrame(render);
+    webgl.render();
+  }
+
+</script>
+</body>
+</html>
