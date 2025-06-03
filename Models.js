@@ -1,7 +1,6 @@
 'use strict';
 
 import * as THREE from 'three';
-import * as SceneUtils from 'three/addons/utils/SceneUtils.js';
 
 
 export class Map extends THREE.Object3D {
@@ -25,6 +24,11 @@ export class Map extends THREE.Object3D {
         });
 
         const plane = new THREE.Mesh(geometry, material);
+
+        // Rotate plane to lie flat on XZ plane (90 degrees around X-axis)
+        plane.rotation.x = -Math.PI / 2;
+        // Position plane at y = 0 (or slightly above to avoid z-fighting)
+        plane.position.y = 0.01;
 
         this.add(plane);
       }

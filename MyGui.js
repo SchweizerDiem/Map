@@ -100,11 +100,10 @@ export class MyGui {
     guiVars.setPerspectiveCamera();
     guiVars.setTrackballControls();
 
-    // Add animation loop for robot movement
-    const animate = () => {
+    // Animation loop
+    function animate() {
       requestAnimationFrame(animate);
-    };
-
+    }
     animate();
   }
 
