@@ -16,7 +16,7 @@ export class Map extends THREE.Object3D {
         const imgWidth = texture.image.width;
         const imgHeight = texture.image.height;
 
-        const geometry = new THREE.PlaneGeometry(imgWidth, imgHeight);
+        let geometry = new THREE.PlaneGeometry(imgWidth, imgHeight);
 
         const material = new THREE.MeshBasicMaterial({
           map: texture,
@@ -25,12 +25,47 @@ export class Map extends THREE.Object3D {
 
         const plane = new THREE.Mesh(geometry, material);
 
-        // Rotate plane to lie flat on XZ plane (90 degrees around X-axis)
-        plane.rotation.x = -Math.PI / 2;
-        // Position plane at y = 0 (or slightly above to avoid z-fighting)
-        plane.position.y = 0.01;
+        plane.rotation.z = 0.5678;
+
+        // TODO: Engrave the text "ALTERNATORS XPTO MY COMPANY INC" in the
+        // cardboard image
+        const cardTexture = new THREE.TextureLoader().load(
+          './texture/istockphoto-470229867-612x612.jpg' // Cardboard image
+        );
+
+
+        const topTexture = new THREE.TextureLoader().load(
+          './texture/alternador-eletrico.png' // Image of alternator
+        );
+
+        // Materiais para cada face do cubo
+        const materials = [
+          new THREE.MeshBasicMaterial({ map: cardTexture }), // Lado direito
+          new THREE.MeshBasicMaterial({ map: cardTexture }), // Lado esquerdo
+          new THREE.MeshBasicMaterial({ map: cardTexture }),  // Topo
+          new THREE.MeshBasicMaterial({ map: cardTexture }), // Base
+          new THREE.MeshBasicMaterial({ map: topTexture }), // Frente
+          new THREE.MeshBasicMaterial({ map: cardTexture })  // Trás
+        ];
+
+        // Create cubes
+        const boxWidth = 28.2;
+        const boxHeigth = 28;
+
+        geometry = new THREE.BoxGeometry(boxWidth, boxHeigth, boxHeigth);
+
+        const box = new THREE.Mesh(geometry, materials);
+        box.position.y = -97;
+        box.position.z = boxHeigth / 2;
+
+        const box2 = new THREE.Mesh(geometry, materials);
+        box2.position.y = -97;
+        box2.position.z = boxHeigth / 2;
+        box2.position.x = -169;
 
         this.add(plane);
+        this.add(box)
+        this.add(box2)
       }
     )
   }
